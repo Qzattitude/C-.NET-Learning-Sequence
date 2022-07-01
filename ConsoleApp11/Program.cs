@@ -8,39 +8,53 @@ class Program
 {
     public static void Main()
     {
-        string Elements = "Ascorbic Acid + Biotin + Boron + " +
+        string ElementString = "Ascorbic Acid + Biotin + Boron + " +
             "Calcium Carbonate + Chromium + Copper + Cyanocobalamin + " +
             "Diabasic Calcium Phosphate + Elemental Iron + Folic Acid + " +
             "Iodine + Lutein + Magnesium + Manganese + Molybdenum + " +
             "Niacin + Nickel + Pantothenic acid + Potassium Chloride + " +
             "Pyridoxine Hydrochloride + Riboflavin + Selenium + Silicon + " +
             "Tin + Vanadium + Vitamin B1 + Vitamin D + Vitamin E + Vitamin K + Zinc";
-        string ElementsAmount = "60 mg + 30 mcg + 150 mcg + 52.49 mg + " +
+        string ElementQuantity = "60 mg + 30 mcg + 150 mcg + 52.49 mg + " +
             "120 mcg + 2 mg + 6 mcg + 478.695 mg + 18 mg + 400 mcg + 150 mcg + " +
             "250 mcg + 100 mg + 2 mg + 75 mcg + 20 mg + 5 mcg + 10 mg + " +
             "152.52 mg + 2 mg + 1.7 mg + 20 mcg + 2 mg + 10 mcg + 10 mcg + " +
             "1.5 mg + 400 IU + 30 IU + 25 mcg + 15 mg";
-        
-        IList<string> ElementsList = Elements.Split(" + ");
-        IList<string> QuantityList = ElementsAmount.Split(" + ");
-        Dictionary<string, string> ElementQuantity = new Dictionary<string, string>();
-        if (ElementsList.Count.Equals(QuantityList.Count)) 
+
+        Methods.NewMethod(ElementString, ElementQuantity);
+
+    }
+
+    
+}
+
+class Methods
+{
+    public static void NewMethod(string ElementString, string ElementQuantity)
+    {
+        string ElementSplitter = " + ";
+        string QuantitySplitter = " + ";
+
+        IList<string> ElementList = ElementString.Split(ElementSplitter);
+        IList<string> QuantityList = ElementQuantity.Split(QuantitySplitter);
+        Dictionary<string, string> ElementVsQuantity = new Dictionary<string, string>();
+        if (ElementList.Count.Equals(QuantityList.Count))
         {
             int loopelement = 0;
-            var TotalElements = ElementsList.Count;
-            foreach (string Element in ElementsList)
+            var TotalElements = ElementList.Count;
+            foreach (string Element in ElementList)
             {
-                ElementQuantity.Add(Element, QuantityList[loopelement]);
+                ElementVsQuantity.Add(Element, QuantityList[loopelement]);
                 loopelement++;
             }
         }
-        foreach(KeyValuePair<string, string> Element in ElementQuantity)
+        foreach (KeyValuePair<string, string> Element in ElementVsQuantity)
         {
-            Console.WriteLine( Element.Key+" = "+Element.Value);
+            Console.WriteLine(Element.Key + " = " + Element.Value);
         }
     }
-
 }
+
 #endregion
 
 #region Extension Method
