@@ -5,85 +5,112 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
-#region Separate two List and Comapre
 class Program
 {
     public static void Main()
     {
-        string ElementString = "Ascorbic Acid + Biotin + Boron + " +
-            "Calcium Carbonate + Chromium + Copper + Cyanocobalamin + " +
-            "Diabasic Calcium Phosphate + Elemental Iron + Folic Acid + " +
-            "Iodine + Lutein + Magnesium + Manganese + Molybdenum + " +
-            "Niacin + Nickel + Pantothenic acid + Potassium Chloride + " +
-            "Pyridoxine Hydrochloride + Riboflavin + Selenium + Silicon + " +
-            "Tin + Vanadium + Vitamin B1 + Vitamin D + Vitamin E + Vitamin K + Zinc";
-        string ElementQuantity = "60 mg + 30 mcg + 150 mcg + 52.49 mg + " +
-            "120 mcg + 2 mg + 6 mcg + 478.695 mg + 18 mg + 400 mcg + 150 mcg + " +
-            "250 mcg + 100 mg + 2 mg + 75 mcg + 20 mg + 5 mcg + 10 mg + " +
-            "152.52 mg + 2 mg + 1.7 mg + 20 mcg + 2 mg + 10 mcg + 10 mcg + " +
-            "1.5 mg + 400 IU + 30 IU + 25 mcg + 15 mg";
-        //Doesnt Work but : Reflection in C# is used to retrieve metadata on types at runtime | Also used to access private function of other classes
-        //typeof(Methods).GetMethod("NewMethod", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(new Methods(), null);
-
-        //Methods method = new Methods();
-        //var Type = method.GetType();
-        //Methods.ElementSplitter(ElementString, ElementQuantity);
-        string RawPrice = "75.25, 120.40";
-        string splitter = ", ";
-        PriceSplitter(RawPrice, splitter);
-    }
-
-    public static void PriceSplitter(string RawPrice, string splitter)
-    {
-        IList<string> Prices = RawPrice.Split(splitter);
-        List<float> PriceinFloat = new();
-        foreach (string PriceItem in Prices)
+        int.TryParse(Console.ReadLine(), out int n);
+        int[] b = new int[n];
+        for (int i = 0; i < n; i++)
         {
-            float.TryParse(PriceItem, out float result);
-            PriceinFloat.Add(result);
+            string s = Console.ReadLine();
+            string[] numArray = s.Split(" ");
+            int[,] a = new int[n, 4];
+            for (int j = 0; j < 4; j++)
+            {
+                a[i, j] = Convert.ToInt32(numArray[j]);
+                if (j > 0 && a[i, j] > a[i, 0]) b[i] += 1;
+            }
+
+        }
+        foreach (int i in b)
+        {
+            Console.WriteLine(i);
         }
 
-        Dictionary<int, float> PriceByVariation = new Dictionary<int, float>();
-        int VariationIndex = 1;
-        foreach (var flaotPrice in PriceinFloat)
-        {
-            PriceByVariation.Add(VariationIndex++, flaotPrice);
-        }
-        foreach (KeyValuePair<int, float> keyValuePair in PriceByVariation)
-        {
-            Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value);
-        }
     }
 }
-//class MyClass
+
+
+#region Separate two List and Comapre
+//class Program
 //{
+//    public static void Main()
+//    {
+//        string ElementString = "Ascorbic Acid + Biotin + Boron + " +
+//            "Calcium Carbonate + Chromium + Copper + Cyanocobalamin + " +
+//            "Diabasic Calcium Phosphate + Elemental Iron + Folic Acid + " +
+//            "Iodine + Lutein + Magnesium + Manganese + Molybdenum + " +
+//            "Niacin + Nickel + Pantothenic acid + Potassium Chloride + " +
+//            "Pyridoxine Hydrochloride + Riboflavin + Selenium + Silicon + " +
+//            "Tin + Vanadium + Vitamin B1 + Vitamin D + Vitamin E + Vitamin K + Zinc";
+//        string ElementQuantity = "60 mg + 30 mcg + 150 mcg + 52.49 mg + " +
+//            "120 mcg + 2 mg + 6 mcg + 478.695 mg + 18 mg + 400 mcg + 150 mcg + " +
+//            "250 mcg + 100 mg + 2 mg + 75 mcg + 20 mg + 5 mcg + 10 mg + " +
+//            "152.52 mg + 2 mg + 1.7 mg + 20 mcg + 2 mg + 10 mcg + 10 mcg + " +
+//            "1.5 mg + 400 IU + 30 IU + 25 mcg + 15 mg";
+//        //Doesnt Work but : Reflection in C# is used to retrieve metadata on types at runtime | Also used to access private function of other classes
+//        //typeof(Methods).GetMethod("NewMethod", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(new Methods(), null);
 
-    class Methods
-    {
-        public static void ElementSplitter(string ElementString, string ElementQuantity)
-        {
-            string ElementSplitter = " + ";
-            string QuantitySplitter = " + ";
+//        //Methods method = new Methods();
+//        //var Type = method.GetType();
+//        //Methods.ElementSplitter(ElementString, ElementQuantity);
+//        string RawPrice = "75.25, 120.40";
+//        string splitter = ", ";
+//        PriceSplitter(RawPrice, splitter);
+//    }
 
-            IList<string> ElementList = ElementString.Split(ElementSplitter);
-            IList<string> QuantityList = ElementQuantity.Split(QuantitySplitter);
-            Dictionary<string, string> ElementVsQuantity = new Dictionary<string, string>();
-            if (ElementList.Count.Equals(QuantityList.Count))
-            {
-                int loopelement = 0;
-                var TotalElements = ElementList.Count;
-                foreach (string Element in ElementList)
-                {
-                    ElementVsQuantity.Add(Element, QuantityList[loopelement]);
-                    loopelement++;
-                }
-            }
-            foreach (KeyValuePair<string, string> Element in ElementVsQuantity)
-            {
-                Console.WriteLine(Element.Key + " = " + Element.Value);
-            }
-        }
-    }
+//    public static void PriceSplitter(string RawPrice, string splitter)
+//    {
+//        IList<string> Prices = RawPrice.Split(splitter);
+//        List<float> PriceinFloat = new();
+//        foreach (string PriceItem in Prices)
+//        {
+//            float.TryParse(PriceItem, out float result);
+//            PriceinFloat.Add(result);
+//        }
+
+//        Dictionary<int, float> PriceByVariation = new Dictionary<int, float>();
+//        int VariationIndex = 1;
+//        foreach (var flaotPrice in PriceinFloat)
+//        {
+//            PriceByVariation.Add(VariationIndex++, flaotPrice);
+//        }
+//        foreach (KeyValuePair<int, float> keyValuePair in PriceByVariation)
+//        {
+//            Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value);
+//        }
+//    }
+//}
+////class MyClass
+////{
+
+//    class Methods
+//    {
+//        public static void ElementSplitter(string ElementString, string ElementQuantity)
+//        {
+//            string ElementSplitter = " + ";
+//            string QuantitySplitter = " + ";
+
+//            IList<string> ElementList = ElementString.Split(ElementSplitter);
+//            IList<string> QuantityList = ElementQuantity.Split(QuantitySplitter);
+//            Dictionary<string, string> ElementVsQuantity = new Dictionary<string, string>();
+//            if (ElementList.Count.Equals(QuantityList.Count))
+//            {
+//                int loopelement = 0;
+//                var TotalElements = ElementList.Count;
+//                foreach (string Element in ElementList)
+//                {
+//                    ElementVsQuantity.Add(Element, QuantityList[loopelement]);
+//                    loopelement++;
+//                }
+//            }
+//            foreach (KeyValuePair<string, string> Element in ElementVsQuantity)
+//            {
+//                Console.WriteLine(Element.Key + " = " + Element.Value);
+//            }
+//        }
+//    }
 
 
 #endregion
