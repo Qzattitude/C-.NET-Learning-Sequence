@@ -9,28 +9,90 @@ class Program
 {
     public static void Main()
     {
-        int.TryParse(Console.ReadLine(), out int n);
-        int[] b = new int[n];
-        for (int i = 0; i < n; i++)
+        int n = int.Parse(Console.ReadLine());
+        
+        int[] ans = new int[n];
+
+        for (int num = 0; num < n; num++)
         {
+            int countpair = 0;
+            int n1 = int.Parse(Console.ReadLine());
             string s = Console.ReadLine();
             string[] numArray = s.Split(" ");
-            int[,] a = new int[n, 4];
-            for (int j = 0; j < 4; j++)
+            int[] a = new int[numArray.Count()];
+            for (int j = 0; j < numArray.Count(); j++)
             {
-                a[i, j] = Convert.ToInt32(numArray[j]);
-                if (j > 0 && a[i, j] > a[i, 0]) b[i] += 1;
+                a[j] = Convert.ToInt32(numArray[j]);
             }
-
+            Array.Sort(a);
+            var totalA = a.Count();
+            var b = a.Distinct().ToArray();
+            Array.Sort(b);
+            for (int j = 0; j < b.Count(); j++)
+            {
+                int singlecount = 0;
+                for (int i = 0; i < a.Count(); i++)
+                {
+                    if (b[j] == a[i]) singlecount++;
+                }
+                if(singlecount == 2)
+                {
+                    countpair++;
+                }
+                //odd pair but not 1
+                else if (singlecount % 2 == 0 && (singlecount/2)%2 ==1 && singlecount>2)
+                {
+                    countpair ++;
+                }
+                else if (singlecount % 2 == 0 && (singlecount / 2) % 2 == 0 && singlecount > 2)
+                {
+                }
+                else ans[num]++;
+            }
+            if (countpair%2 == 1 && countpair!=0)
+            {
+                ans[num] += (countpair - 1);
+            }
+            else if(countpair % 2 == 0 && countpair != 0)
+            {
+                ans[num] += countpair;
+            }
         }
-        foreach (int i in b)
+        foreach(int Number in ans)
         {
-            Console.WriteLine(i);
+            Console.WriteLine(Number);
         }
-
     }
 }
 
+#region A.Marathon
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int.TryParse(Console.ReadLine(), out int n);
+//        int[] b = new int[n];
+//        for (int i = 0; i < n; i++)
+//        {
+//            string s = Console.ReadLine();
+//            string[] numArray = s.Split(" ");
+//            int[,] a = new int[n, 4];
+//            for (int j = 0; j < 4; j++)
+//            {
+//                a[i, j] = Convert.ToInt32(numArray[j]);
+//                if (j > 0 && a[i, j] > a[i, 0]) b[i] += 1;
+//            }
+
+//        }
+//        foreach (int i in b)
+//        {
+//            Console.WriteLine(i);
+//        }
+
+//    }
+//}
+
+#endregion
 
 #region Separate two List and Comapre
 //class Program
