@@ -46,6 +46,7 @@ class Program
                 }
                 else if (singlecount % 2 == 0 && (singlecount / 2) % 2 == 0 && singlecount > 2)
                 {
+                    countpair++;
                 }
                 else ans[num]++;
             }
