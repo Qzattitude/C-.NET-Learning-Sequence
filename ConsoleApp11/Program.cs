@@ -4,57 +4,97 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Reflection;
 using System.Linq;
+
 class Program
 {
     public static void Main()
     {
         int n = int.Parse(Console.ReadLine());
+        int[] ans = new int[n];
+        int[] PowOfTen = new int[10];
+        for (int i = 0; i < 10; i++)
+        {
+            int des = 10;
+            PowOfTen[i] = (int)Math.Pow(des, i);
+        }
+        
+        
 
-        char[,] Chess = new char[8,8];
-        int[,] Ans = new int[2, n];
-        string s2 = Console.ReadLine();
         for (int num = 0; num < n; num++)
         {
-            for (int i = 0; i <= 7; i++)
+            int lowest = 1999999999;
+            int.TryParse(Console.ReadLine(), out int Number);
+            for(int i = 0; i < 10; i++)
             {
-                string s = Console.ReadLine();
-                if (!s.Equals(""))
+                if (Math.Abs(Number - PowOfTen[i]) <= lowest && PowOfTen[i] <=Number)
                 {
-                    for (int j = 0; j <= 7; j++)
-                    {
-                        Chess[i, j] = s[j];
-                    } 
-                }
-                else if(s.Equals("")) i = -1;
-
-            }
-
-            for (int i = 0; i <= 7; i++)
-            {
-                for(int j = 0; j <= 7; j++)
-                {
-                    if (Chess[i,j].Equals('#') && i>=1 && j >= 1 && i <= 6 && j <=6)
-                    {
-                        if (Chess[i-1,j-1].Equals('#')
-                            && Chess[i - 1, j + 1].Equals('#')
-                            && Chess[i + 1, j - 1].Equals('#')
-                            && Chess[i + 1, j + 1].Equals('#'))
-                        {
-
-                            Ans[0, num] = i+1;
-                            Ans[1, num] = j+1;
-                        }
-                    }
+                    lowest = (int)Math.Abs(Number - PowOfTen[i]);
                 }
             }
+            ans[num] = lowest;
             
         }
-        for (int i = 0; i < n; i++)
+        for(int i = 0; i < n; i++)
         {
-            Console.WriteLine("{0} {1}", Ans[0, i] ,Ans[1,i]);
+            Console.WriteLine(ans[i]);
         }
     }
 }
+
+#region Where is the Bishop
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int n = int.Parse(Console.ReadLine());
+
+//        char[,] Chess = new char[8, 8];
+//        int[,] Ans = new int[2, n];
+//        string s2 = Console.ReadLine();
+//        for (int num = 0; num < n; num++)
+//        {
+//            for (int i = 0; i <= 7; i++)
+//            {
+//                string s = Console.ReadLine();
+//                if (!s.Equals(""))
+//                {
+//                    for (int j = 0; j <= 7; j++)
+//                    {
+//                        Chess[i, j] = s[j];
+//                    }
+//                }
+//                else if (s.Equals("")) i = -1;
+
+//            }
+
+//            for (int i = 0; i <= 7; i++)
+//            {
+//                for (int j = 0; j <= 7; j++)
+//                {
+//                    if (Chess[i, j].Equals('#') && i >= 1 && j >= 1 && i <= 6 && j <= 6)
+//                    {
+//                        if (Chess[i - 1, j - 1].Equals('#')
+//                            && Chess[i - 1, j + 1].Equals('#')
+//                            && Chess[i + 1, j - 1].Equals('#')
+//                            && Chess[i + 1, j + 1].Equals('#'))
+//                        {
+
+//                            Ans[0, num] = i + 1;
+//                            Ans[1, num] = j + 1;
+//                        }
+//                    }
+//                }
+//            }
+
+//        }
+//        for (int i = 0; i < n; i++)
+//        {
+//            Console.WriteLine("{0} {1}", Ans[0, i], Ans[1, i]);
+//        }
+//    }
+//} 
+#endregion
+
 #region B. All Distinct
 
 //class Program
