@@ -4,67 +4,121 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Reflection;
 using System.Linq;
-
 class Program
 {
     public static void Main()
     {
         int n = int.Parse(Console.ReadLine());
-        
-        int[] ans = new int[n];
 
+        char[,] Chess = new char[8,8];
+        int[,] Ans = new int[2, n];
+        string s2 = Console.ReadLine();
         for (int num = 0; num < n; num++)
         {
-            int countpair = 0;
-            int n1 = int.Parse(Console.ReadLine());
-            string s = Console.ReadLine();
-            string[] numArray = s.Split(" ");
-            int[] a = new int[numArray.Count()];
-            for (int j = 0; j < numArray.Count(); j++)
+            for (int i = 0; i <= 7; i++)
             {
-                a[j] = Convert.ToInt32(numArray[j]);
+                string s = Console.ReadLine();
+                if (!s.Equals(""))
+                {
+                    for (int j = 0; j <= 7; j++)
+                    {
+                        Chess[i, j] = s[j];
+                    } 
+                }
+                else if(s.Equals("")) i = -1;
+
             }
-            Array.Sort(a);
-            var totalA = a.Count();
-            var b = a.Distinct().ToArray();
-            Array.Sort(b);
-            for (int j = 0; j < b.Count(); j++)
+
+            for (int i = 0; i <= 7; i++)
             {
-                int singlecount = 0;
-                for (int i = 0; i < a.Count(); i++)
+                for(int j = 0; j <= 7; j++)
                 {
-                    if (b[j] == a[i]) singlecount++;
+                    if (Chess[i,j].Equals('#') && i>=1 && j >= 1 && i <= 6 && j <=6)
+                    {
+                        if (Chess[i-1,j-1].Equals('#')
+                            && Chess[i - 1, j + 1].Equals('#')
+                            && Chess[i + 1, j - 1].Equals('#')
+                            && Chess[i + 1, j + 1].Equals('#'))
+                        {
+
+                            Ans[0, num] = i+1;
+                            Ans[1, num] = j+1;
+                        }
+                    }
                 }
-                if(singlecount == 2)
-                {
-                    countpair++;
-                }
-                //odd pair but not 1
-                else if (singlecount % 2 == 0 && (singlecount/2)%2 ==1 && singlecount>2)
-                {
-                    countpair ++;
-                }
-                else if (singlecount % 2 == 0 && (singlecount / 2) % 2 == 0 && singlecount > 2)
-                {
-                    countpair++;
-                }
-                else ans[num]++;
             }
-            if (countpair%2 == 1 && countpair!=0)
-            {
-                ans[num] += (countpair - 1);
-            }
-            else if(countpair % 2 == 0 && countpair != 0)
-            {
-                ans[num] += countpair;
-            }
+            
         }
-        foreach(int Number in ans)
+        for (int i = 0; i < n; i++)
         {
-            Console.WriteLine(Number);
+            Console.WriteLine("{0} {1}", Ans[0, i] ,Ans[1,i]);
         }
     }
 }
+#region B. All Distinct
+
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int n = int.Parse(Console.ReadLine());
+
+//        int[] ans = new int[n];
+
+//        for (int num = 0; num < n; num++)
+//        {
+//            int countpair = 0;
+//            int n1 = int.Parse(Console.ReadLine());
+//            string s = Console.ReadLine();
+//            string[] numArray = s.Split(" ");
+//            int[] a = new int[numArray.Count()];
+//            for (int j = 0; j < numArray.Count(); j++)
+//            {
+//                a[j] = Convert.ToInt32(numArray[j]);
+//            }
+//            Array.Sort(a);
+//            var totalA = a.Count();
+//            var b = a.Distinct().ToArray();
+//            Array.Sort(b);
+//            for (int j = 0; j < b.Count(); j++)
+//            {
+//                int singlecount = 0;
+//                for (int i = 0; i < a.Count(); i++)
+//                {
+//                    if (b[j] == a[i]) singlecount++;
+//                }
+//                if (singlecount == 2)
+//                {
+//                    countpair++;
+//                }
+//                //odd pair but not 1
+//                else if (singlecount % 2 == 0 && (singlecount / 2) % 2 == 1 && singlecount > 2)
+//                {
+//                    countpair++;
+//                }
+//                else if (singlecount % 2 == 0 && (singlecount / 2) % 2 == 0 && singlecount > 2)
+//                {
+//                    countpair++;
+//                }
+//                else ans[num]++;
+//            }
+//            if (countpair % 2 == 1 && countpair != 0)
+//            {
+//                ans[num] += (countpair - 1);
+//            }
+//            else if (countpair % 2 == 0 && countpair != 0)
+//            {
+//                ans[num] += countpair;
+//            }
+//        }
+//        foreach (int Number in ans)
+//        {
+//            Console.WriteLine(Number);
+//        }
+//    }
+//}
+
+#endregion
 
 #region A.Marathon
 //class Program
