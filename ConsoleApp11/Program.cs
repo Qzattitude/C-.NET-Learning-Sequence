@@ -5,41 +5,91 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
+#region B. Polycarp Writes a String from Memory
 class Program
 {
     public static void Main()
     {
         int n = int.Parse(Console.ReadLine());
         int[] ans = new int[n];
-        int[] PowOfTen = new int[10];
-        for (int i = 0; i < 10; i++)
-        {
-            int des = 10;
-            PowOfTen[i] = (int)Math.Pow(des, i);
-        }
-        
-        
-
-        for (int num = 0; num < n; num++)
-        {
-            int lowest = 1999999999;
-            int.TryParse(Console.ReadLine(), out int Number);
-            for(int i = 0; i < 10; i++)
-            {
-                if (Math.Abs(Number - PowOfTen[i]) <= lowest && PowOfTen[i] <=Number)
-                {
-                    lowest = (int)Math.Abs(Number - PowOfTen[i]);
-                }
-            }
-            ans[num] = lowest;
-            
-        }
         for(int i = 0; i < n; i++)
         {
-            Console.WriteLine(ans[i]);
+            string s = Console.ReadLine();
+            int NullCount = (s.Length) % 3;
+            int MaxChar = 0;
+            int countSubLength = 3;
+            for(int j = 3; j < s.Length; j++)
+            {
+                try
+                {
+                    string sub = s.Substring(MaxChar, countSubLength);
+                    if (sub.Distinct().Count().Equals(3))
+                    {
+                        MaxChar = j;
+                        ans[i] += 1;
+                        j=j+2;
+                        countSubLength = 3;
+                    }
+                    else countSubLength++;
+                }
+                catch(Exception e)
+                {
+                    MaxChar = MaxChar + countSubLength;
+                }
+                
+            }
+            if(MaxChar<= s.Length)
+            {
+                ans[i] += 1;
+            }
+        }
+        foreach(int i in ans)
+        {
+            Console.WriteLine(i);
         }
     }
 }
+#endregion
+
+#region A. Round The Bill
+
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int n = int.Parse(Console.ReadLine());
+//        int[] ans = new int[n];
+//        int[] PowOfTen = new int[10];
+//        for (int i = 0; i < 10; i++)
+//        {
+//            int des = 10;
+//            PowOfTen[i] = (int)Math.Pow(des, i);
+//        }
+
+
+
+//        for (int num = 0; num < n; num++)
+//        {
+//            int lowest = 1999999999;
+//            int.TryParse(Console.ReadLine(), out int Number);
+//            for (int i = 0; i < 10; i++)
+//            {
+//                if (Math.Abs(Number - PowOfTen[i]) <= lowest && PowOfTen[i] <= Number)
+//                {
+//                    lowest = (int)Math.Abs(Number - PowOfTen[i]);
+//                }
+//            }
+//            ans[num] = lowest;
+
+//        }
+//        for (int i = 0; i < n; i++)
+//        {
+//            Console.WriteLine(ans[i]);
+//        }
+//    }
+//}
+
+#endregion
 
 #region Where is the Bishop
 //class Program
