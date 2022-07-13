@@ -18,30 +18,49 @@ class Program
             int NullCount = (s.Length) % 3;
             int MaxChar = 0;
             int countSubLength = 3;
-            for(int j = 3; j < s.Length; j++)
+            char[] MaxCharPerDay = new char[4];
+            for (int j = 0; j < s.Length; )
             {
-                try
+                if (MaxCharPerDay[0] == '\0')
                 {
-                    string sub = s.Substring(MaxChar, countSubLength);
-                    if (sub.Distinct().Count().Equals(3))
-                    {
-                        MaxChar = j;
-                        ans[i] += 1;
-                        j=j+2;
-                        countSubLength = 3;
-                    }
-                    else countSubLength++;
+                    MaxCharPerDay[0] = s[j];
+                    j++;
                 }
-                catch(Exception e)
+                else if (MaxCharPerDay[0] == s[j])
                 {
-                    MaxChar = MaxChar + countSubLength;
+                    j++;
                 }
-                
+                else if (MaxCharPerDay[1] == s[j])
+                {
+                    j++;
+                }
+                else if (MaxCharPerDay[2] == s[j])
+                {
+                    j++;
+                }
+                else if (MaxCharPerDay[1] == '\0')
+                {
+                    MaxCharPerDay[1] = s[j];
+                    j++;
+                }
+                else if (MaxCharPerDay[2] == '\0')
+                {
+                    MaxCharPerDay[2] = s[j];
+                    j++;
+                }
+                else
+                {
+                    ans[i] += 1;
+                    MaxCharPerDay[0] = '\0';
+                    MaxCharPerDay[1] = '\0';
+                    MaxCharPerDay[2] = '\0';
+                }
             }
-            if(MaxChar<= s.Length)
+            if (MaxCharPerDay[0]!='\0' || MaxCharPerDay[1] != '\0' || MaxCharPerDay[2] != '\0')
             {
                 ans[i] += 1;
             }
+
         }
         foreach(int i in ans)
         {
