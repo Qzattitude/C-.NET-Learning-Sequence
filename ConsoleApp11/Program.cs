@@ -5,69 +5,128 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
-#region B. Polycarp Writes a String from Memory
+#region A. Benches
 class Program
 {
     public static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        int[] ans = new int[n];
-        for(int i = 0; i < n; i++)
+        int.TryParse(Console.ReadLine(), out int n);
+        int.TryParse(Console.ReadLine(), out int IncomingPeople);
+        int ansMin = 0;
+        int currentTota = 0;
+        int currentMax = 0;
+        int[] BenchPeople = new int[n];
+        for (int i = 0; i < n; i++)
         {
-            string s = Console.ReadLine();
-            int NullCount = (s.Length) % 3;
-            int MaxChar = 0;
-            int countSubLength = 3;
-            char[] MaxCharPerDay = new char[4];
-            for (int j = 0; j < s.Length; )
-            {
-                if (MaxCharPerDay[0] == '\0')
-                {
-                    MaxCharPerDay[0] = s[j];
-                    j++;
-                }
-                else if (MaxCharPerDay[0] == s[j])
-                {
-                    j++;
-                }
-                else if (MaxCharPerDay[1] == s[j])
-                {
-                    j++;
-                }
-                else if (MaxCharPerDay[2] == s[j])
-                {
-                    j++;
-                }
-                else if (MaxCharPerDay[1] == '\0')
-                {
-                    MaxCharPerDay[1] = s[j];
-                    j++;
-                }
-                else if (MaxCharPerDay[2] == '\0')
-                {
-                    MaxCharPerDay[2] = s[j];
-                    j++;
-                }
-                else
-                {
-                    ans[i] += 1;
-                    MaxCharPerDay[0] = '\0';
-                    MaxCharPerDay[1] = '\0';
-                    MaxCharPerDay[2] = '\0';
-                }
-            }
-            if (MaxCharPerDay[0]!='\0' || MaxCharPerDay[1] != '\0' || MaxCharPerDay[2] != '\0')
-            {
-                ans[i] += 1;
-            }
+            int.TryParse(Console.ReadLine(), out BenchPeople[i]);
+            currentTota += BenchPeople[i];
+        }
+        currentMax = BenchPeople.Max();
+        if(((currentTota + IncomingPeople) % n) != 0 && (int)(currentTota + IncomingPeople) / n >= currentMax)
+        {
+            ansMin = ((int)(currentTota+IncomingPeople)/n)+1;
+        }
+        else if(((currentTota + IncomingPeople) % n) == 0 && (int)(currentTota + IncomingPeople) / n >= currentMax)
+        {
+            ansMin = (currentTota + IncomingPeople) / n;
+        }
+        else
+        {
+            ansMin = currentMax;
+        }
 
-        }
-        foreach(int i in ans)
-        {
-            Console.WriteLine(i);
-        }
+        Console.WriteLine("{0} {1}", ansMin, IncomingPeople+currentMax);
     }
-}
+} 
+#endregion
+
+#region B. Polycarp Writes a String from Memory && A. YES or YES?
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int n = int.Parse(Console.ReadLine());
+//        string[] ans = new string[n];
+//        for (int i = 0; i < n; i++)
+//        {
+//            string s = Console.ReadLine().ToUpper();
+//            if (s.Equals("YES"))
+//            {
+//                ans[i] = "YES";
+//            }
+//            else
+//            {
+//                ans[i] = "NO";
+//            }
+//        }
+//        foreach(string s in ans)
+//        {
+//            Console.WriteLine(s);
+//        }
+//    }
+//}
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int n = int.Parse(Console.ReadLine());
+//        int[] ans = new int[n];
+//        for(int i = 0; i < n; i++)
+//        {
+//            string s = Console.ReadLine();
+//            int NullCount = (s.Length) % 3;
+//            int MaxChar = 0;
+//            int countSubLength = 3;
+//            char[] MaxCharPerDay = new char[4];
+//            for (int j = 0; j < s.Length; )
+//            {
+//                if (MaxCharPerDay[0] == '\0')
+//                {
+//                    MaxCharPerDay[0] = s[j];
+//                    j++;
+//                }
+//                else if (MaxCharPerDay[0] == s[j])
+//                {
+//                    j++;
+//                }
+//                else if (MaxCharPerDay[1] == s[j])
+//                {
+//                    j++;
+//                }
+//                else if (MaxCharPerDay[2] == s[j])
+//                {
+//                    j++;
+//                }
+//                else if (MaxCharPerDay[1] == '\0')
+//                {
+//                    MaxCharPerDay[1] = s[j];
+//                    j++;
+//                }
+//                else if (MaxCharPerDay[2] == '\0')
+//                {
+//                    MaxCharPerDay[2] = s[j];
+//                    j++;
+//                }
+//                else
+//                {
+//                    ans[i] += 1;
+//                    MaxCharPerDay[0] = '\0';
+//                    MaxCharPerDay[1] = '\0';
+//                    MaxCharPerDay[2] = '\0';
+//                }
+//            }
+//            if (MaxCharPerDay[0]!='\0' || MaxCharPerDay[1] != '\0' || MaxCharPerDay[2] != '\0')
+//            {
+//                ans[i] += 1;
+//            }
+
+//        }
+//        foreach(int i in ans)
+//        {
+//            Console.WriteLine(i);
+//        }
+//    }
+//}
 #endregion
 
 #region A. Round The Bill
