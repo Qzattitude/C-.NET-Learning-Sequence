@@ -5,39 +5,131 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
-#region A. Benches
+#region C. Train and Queries
 class Program
 {
     public static void Main()
     {
         int.TryParse(Console.ReadLine(), out int n);
-        int.TryParse(Console.ReadLine(), out int IncomingPeople);
-        int ansMin = 0;
-        int currentTota = 0;
-        int currentMax = 0;
-        int[] BenchPeople = new int[n];
+        string[,] ans = new string[n,200000];
+
         for (int i = 0; i < n; i++)
         {
-            int.TryParse(Console.ReadLine(), out BenchPeople[i]);
-            currentTota += BenchPeople[i];
-        }
-        currentMax = BenchPeople.Max();
-        if(((currentTota + IncomingPeople) % n) != 0 && (int)(currentTota + IncomingPeople) / n >= currentMax)
-        {
-            ansMin = ((int)(currentTota+IncomingPeople)/n)+1;
-        }
-        else if(((currentTota + IncomingPeople) % n) == 0 && (int)(currentTota + IncomingPeople) / n >= currentMax)
-        {
-            ansMin = (currentTota + IncomingPeople) / n;
-        }
-        else
-        {
-            ansMin = currentMax;
-        }
+            Console.ReadLine();
 
-        Console.WriteLine("{0} {1}", ansMin, IncomingPeople+currentMax);
+            string Input = Console.ReadLine();
+            string[] InputParser = Input.Split(" ");
+            int.TryParse(InputParser[0], out int NumberOfStations);
+            int.TryParse(InputParser[1], out int NumberOfPoints);
+
+            //int.TryParse(Console.ReadLine(), out int NumberOfStations);
+
+            //int[] Stations = new int[NumberOfStations];
+
+            //int.TryParse(Console.ReadLine(), out int NumberOfPoints);
+
+            int[] Points = new int[NumberOfStations];
+            int[,] Nodes = new int[NumberOfPoints, 3];
+
+            string s = Console.ReadLine();
+            string[] Parser = s.Split(" ");
+            for(int j = 0; j < NumberOfStations; j++)
+            {
+                int.TryParse(Parser[j], out Points[j]);
+            }
+
+            for(int j = 0; j < NumberOfPoints; j++)
+            {
+                string node = Console.ReadLine();
+                string[] nodeParser = node.Split(" ");
+                int.TryParse(nodeParser[0], out Nodes[j,0]);
+                int.TryParse(nodeParser[1], out Nodes[j,1]);
+            }
+            int INDEX = 0;
+            int DECISION1 = 0;
+            for (int j = 0; j < NumberOfPoints; j++)
+            {
+                for(int k = 0; k < NumberOfStations; k++)
+                {
+                    if(Nodes[j,0] == Points[k])
+                    {
+                        INDEX = k;
+                        DECISION1++;
+                        break;
+                    }
+                }
+                if (DECISION1!=0)
+                {
+                    int DECISION = 0;
+                    if (INDEX < NumberOfStations)
+                    {
+                        for (int k = INDEX + 1; k < NumberOfStations; k++)
+                        {
+                            if (Nodes[j, 1] == Points[k])
+                            {
+                                ans[i, j] = "YES";
+                                DECISION++;
+                                break;
+                            }
+                        }
+
+                    }
+                    if (DECISION == 0)
+                    {
+                        ans[i, j] = "NO";
+                    } 
+                }
+                else
+                {
+                    ans[i, j] = "NO";
+                }
+            }
+            
+        }
+        for(int i = 0;i < n; i++)
+        {
+            for(int j = 0; ans[i,j]!=null; j++)
+            {
+                Console.WriteLine("{0}", ans[i,j]);
+            }
+        }
     }
-} 
+}
+#endregion
+
+#region A. Benches
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int.TryParse(Console.ReadLine(), out int n);
+//        int.TryParse(Console.ReadLine(), out int IncomingPeople);
+//        int ansMin = 0;
+//        int currentTota = 0;
+//        int currentMax = 0;
+//        int[] BenchPeople = new int[n];
+//        for (int i = 0; i < n; i++)
+//        {
+//            int.TryParse(Console.ReadLine(), out BenchPeople[i]);
+//            currentTota += BenchPeople[i];
+//        }
+//        currentMax = BenchPeople.Max();
+//        if(((currentTota + IncomingPeople) % n) != 0 && (int)(currentTota + IncomingPeople) / n >= currentMax)
+//        {
+//            ansMin = ((int)(currentTota+IncomingPeople)/n)+1;
+//        }
+//        else if(((currentTota + IncomingPeople) % n) == 0 && (int)(currentTota + IncomingPeople) / n >= currentMax)
+//        {
+//            ansMin = (currentTota + IncomingPeople) / n;
+//        }
+//        else
+//        {
+//            ansMin = currentMax;
+//        }
+
+//        Console.WriteLine("{0} {1}", ansMin, IncomingPeople+currentMax);
+//    }
+//} 
 #endregion
 
 #region B. Polycarp Writes a String from Memory && A. YES or YES?
