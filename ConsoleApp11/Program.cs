@@ -11,54 +11,46 @@ class Program
     public static void Main()
     {
         int.TryParse(Console.ReadLine(), out int n);
-        string[,] ans = new string[n,200000];
-
+        string[,] ans = new string[n, 200000];
         for (int i = 0; i < n; i++)
         {
             Console.ReadLine();
-
             string Input = Console.ReadLine();
             string[] InputParser = Input.Split(" ");
             int.TryParse(InputParser[0], out int NumberOfStations);
             int.TryParse(InputParser[1], out int NumberOfPoints);
-
-            //int.TryParse(Console.ReadLine(), out int NumberOfStations);
-
-            //int[] Stations = new int[NumberOfStations];
-
-            //int.TryParse(Console.ReadLine(), out int NumberOfPoints);
 
             int[] Points = new int[NumberOfStations];
             int[,] Nodes = new int[NumberOfPoints, 3];
 
             string s = Console.ReadLine();
             string[] Parser = s.Split(" ");
-            for(int j = 0; j < NumberOfStations; j++)
+            for (int j = 0; j < NumberOfStations; j++)
             {
                 int.TryParse(Parser[j], out Points[j]);
             }
 
-            for(int j = 0; j < NumberOfPoints; j++)
+            for (int j = 0; j < NumberOfPoints; j++)
             {
                 string node = Console.ReadLine();
                 string[] nodeParser = node.Split(" ");
-                int.TryParse(nodeParser[0], out Nodes[j,0]);
-                int.TryParse(nodeParser[1], out Nodes[j,1]);
+                int.TryParse(nodeParser[0], out Nodes[j, 0]);
+                int.TryParse(nodeParser[1], out Nodes[j, 1]);
             }
             int INDEX = 0;
             int DECISION1 = 0;
             for (int j = 0; j < NumberOfPoints; j++)
             {
-                for(int k = 0; k < NumberOfStations; k++)
+                for (int k = 0; k < NumberOfStations; k++)
                 {
-                    if(Nodes[j,0] == Points[k])
+                    if (Nodes[j, 0] == Points[k])
                     {
                         INDEX = k;
                         DECISION1++;
                         break;
                     }
                 }
-                if (DECISION1!=0)
+                if (DECISION1 != 0)
                 {
                     int DECISION = 0;
                     if (INDEX < NumberOfStations)
@@ -77,20 +69,20 @@ class Program
                     if (DECISION == 0)
                     {
                         ans[i, j] = "NO";
-                    } 
+                    }
                 }
                 else
                 {
                     ans[i, j] = "NO";
                 }
             }
-            
+
         }
-        for(int i = 0;i < n; i++)
+        for (int i = 0; i < n; i++)
         {
-            for(int j = 0; ans[i,j]!=null; j++)
+            for (int j = 0; ans[i, j] != null; j++)
             {
-                Console.WriteLine("{0}", ans[i,j]);
+                Console.WriteLine("{0}", ans[i, j]);
             }
         }
     }
