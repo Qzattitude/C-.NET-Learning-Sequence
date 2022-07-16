@@ -69,11 +69,13 @@ class Program
                     if (DECISION == 0)
                     {
                         ans[i, j] = "NO";
+                        DECISION1 = 0;
                     }
                 }
                 else
                 {
                     ans[i, j] = "NO";
+                    DECISION1 = 0;
                 }
             }
 
