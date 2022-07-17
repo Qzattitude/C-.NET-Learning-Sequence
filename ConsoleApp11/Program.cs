@@ -5,90 +5,125 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
-#region C. Train and Queries
+#region A. Even Odds
+
 class Program
 {
     public static void Main()
     {
-        int.TryParse(Console.ReadLine(), out int n);
-        string[,] ans = new string[n, 200000];
-        for (int i = 0; i < n; i++)
+        string Input = Console.ReadLine();
+        string[] InputParser = Input.Split(" ");
+        int.TryParse(InputParser[0], out int Range);
+        int.TryParse(InputParser[1], out int Number);
+        List<int> RangeList = new List<int>();
+        int[] arr = new int[Range];
+        int j = 1;
+        for(int i = 0; j <= Range; i++)
         {
-            Console.ReadLine();
-            string Input = Console.ReadLine();
-            string[] InputParser = Input.Split(" ");
-            int.TryParse(InputParser[0], out int NumberOfStations);
-            int.TryParse(InputParser[1], out int NumberOfPoints);
-
-            int[] Points = new int[NumberOfStations];
-            int[,] Nodes = new int[NumberOfPoints, 3];
-
-            string s = Console.ReadLine();
-            string[] Parser = s.Split(" ");
-            for (int j = 0; j < NumberOfStations; j++)
-            {
-                int.TryParse(Parser[j], out Points[j]);
-            }
-
-            for (int j = 0; j < NumberOfPoints; j++)
-            {
-                string node = Console.ReadLine();
-                string[] nodeParser = node.Split(" ");
-                int.TryParse(nodeParser[0], out Nodes[j, 0]);
-                int.TryParse(nodeParser[1], out Nodes[j, 1]);
-            }
-            int INDEX = 0;
-            int DECISION1 = 0;
-            for (int j = 0; j < NumberOfPoints; j++)
-            {
-                for (int k = 0; k < NumberOfStations; k++)
-                {
-                    if (Nodes[j, 0] == Points[k])
-                    {
-                        INDEX = k;
-                        DECISION1++;
-                        break;
-                    }
-                }
-                if (DECISION1 != 0)
-                {
-                    int DECISION = 0;
-                    if (INDEX < NumberOfStations)
-                    {
-                        for (int k = INDEX + 1; k < NumberOfStations; k++)
-                        {
-                            if (Nodes[j, 1] == Points[k])
-                            {
-                                ans[i, j] = "YES";
-                                DECISION++;
-                                break;
-                            }
-                        }
-
-                    }
-                    if (DECISION == 0)
-                    {
-                        ans[i, j] = "NO";
-                        DECISION1 = 0;
-                    }
-                }
-                else
-                {
-                    ans[i, j] = "NO";
-                    DECISION1 = 0;
-                }
-            }
-
+            RangeList.Add(j);
+            j+=2;
         }
-        for (int i = 0; i < n; i++)
+        j = 2;
+        for (int i = 0; j <= Range; i++)
         {
-            for (int j = 0; ans[i, j] != null; j++)
-            {
-                Console.WriteLine("{0}", ans[i, j]);
-            }
+            RangeList.Add(j);
+            j += 2;
+        }
+        for (int i = 1; i <= RangeList.Count(); i++)
+        {
+            if (i == Number)
+                Console.WriteLine(RangeList[i - 1]);
         }
     }
 }
+
+#endregion
+
+#region C. Train and Queries || Logic Problems
+
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int.TryParse(Console.ReadLine(), out int n);
+//        string[,] ans = new string[n, 200000];
+//        for (int i = 0; i < n; i++)
+//        {
+//            Console.ReadLine();
+//            string Input = Console.ReadLine();
+//            string[] InputParser = Input.Split(" ");
+//            int.TryParse(InputParser[0], out int NumberOfStations);
+//            int.TryParse(InputParser[1], out int NumberOfPoints);
+
+//            int[] Points = new int[NumberOfStations];
+//            int[,] Nodes = new int[NumberOfPoints, 3];
+
+//            string s = Console.ReadLine();
+//            string[] Parser = s.Split(" ");
+//            for (int j = 0; j < NumberOfStations; j++)
+//            {
+//                int.TryParse(Parser[j], out Points[j]);
+//            }
+
+//            for (int j = 0; j < NumberOfPoints; j++)
+//            {
+//                string node = Console.ReadLine();
+//                string[] nodeParser = node.Split(" ");
+//                int.TryParse(nodeParser[0], out Nodes[j, 0]);
+//                int.TryParse(nodeParser[1], out Nodes[j, 1]);
+//            }
+//            int INDEX = 0;
+//            int DECISION1 = 0;
+//            for (int j = 0; j < NumberOfPoints; j++)
+//            {
+//                for (int k = 0; k < NumberOfStations; k++)
+//                {
+//                    if (Nodes[j, 0] == Points[k])
+//                    {
+//                        INDEX = k;
+//                        DECISION1++;
+//                        break;
+//                    }
+//                }
+//                if (DECISION1 != 0)
+//                {
+//                    int DECISION = 0;
+//                    if (INDEX < NumberOfStations)
+//                    {
+//                        for (int k = INDEX + 1; k < NumberOfStations; k++)
+//                        {
+//                            if (Nodes[j, 1] == Points[k])
+//                            {
+//                                ans[i, j] = "YES";
+//                                DECISION++;
+//                                break;
+//                            }
+//                        }
+
+//                    }
+//                    if (DECISION == 0)
+//                    {
+//                        ans[i, j] = "NO";
+//                        DECISION1 = 0;
+//                    }
+//                }
+//                else
+//                {
+//                    ans[i, j] = "NO";
+//                    DECISION1 = 0;
+//                }
+//            }
+
+//        }
+//        for (int i = 0; i < n; i++)
+//        {
+//            for (int j = 0; ans[i, j] != null; j++)
+//            {
+//                Console.WriteLine("{0}", ans[i, j]);
+//            }
+//        }
+//    }
+//}
 #endregion
 
 #region A. Benches
