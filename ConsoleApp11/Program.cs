@@ -25,15 +25,8 @@ class Program
             }
             else if(Numbers[0] % Numbers[1] != 0)
             {
-                for(int j = 0; j < Numbers[1]; j++)
-                {
-                    Numbers[0]++;
-                    if(Numbers[0] % Numbers[1] == 0)
-                    {
-                        ans[i]=j+1;
-                        break;
-                    }
-                }
+                var Mod = Numbers[0] % Numbers[1];
+                ans[i] = Numbers[1] - Mod;
             }
         }
         foreach(int i in ans)
