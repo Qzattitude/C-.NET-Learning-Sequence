@@ -5,7 +5,7 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
-#region A. Even Odds
+#region A. Even Odds || Error for too long
 
 class Program
 {
