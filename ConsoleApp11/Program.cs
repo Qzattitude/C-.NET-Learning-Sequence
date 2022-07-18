@@ -5,37 +5,77 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
-#region A. Even Odds || Error for too long
-
+#region Divisibility Problem
 class Program
 {
     public static void Main()
     {
-        string Input = Console.ReadLine();
-        string[] InputParser = Input.Split(" ");
-        int.TryParse(InputParser[0], out int Range);
-        int.TryParse(InputParser[1], out int Number);
-        List<int> RangeList = new List<int>();
-        int[] arr = new int[Range];
-        int j = 1;
-        for(int i = 0; j <= Range; i++)
+        int.TryParse(Console.ReadLine(), out int n);
+        int[] ans = new int[n];
+        
+        for (int i = 0; i < n; i++)
         {
-            RangeList.Add(j);
-            j+=2;
+            int[] Numbers = Array.ConvertAll(Console.ReadLine()
+                .Split(new char[] { ' ' }, 
+                StringSplitOptions.RemoveEmptyEntries), 
+                (item) => Convert.ToInt32(item));
+            if (Numbers[0] % Numbers[1] == 0)
+            {
+                ans[i] = 0;
+            }
+            else if(Numbers[0] % Numbers[1] != 0)
+            {
+                for(int j = 0; j < Numbers[1]; j++)
+                {
+                    Numbers[0]++;
+                    if(Numbers[0] % Numbers[1] == 0)
+                    {
+                        ans[i]=j+1;
+                        break;
+                    }
+                }
+            }
         }
-        j = 2;
-        for (int i = 0; j <= Range; i++)
+        foreach(int i in ans)
         {
-            RangeList.Add(j);
-            j += 2;
+            Console.WriteLine(i);
         }
-        for (int i = 1; i <= RangeList.Count(); i++)
-        {
-            if (i == Number)
-                Console.WriteLine(RangeList[i - 1]);
-        }
+        
     }
-}
+} 
+#endregion
+
+#region A. Even Odds || Error for too long
+
+//class Program
+//{
+//    public static void Main()
+//    {
+//        string Input = Console.ReadLine();
+//        string[] InputParser = Input.Split(" ");
+//        int.TryParse(InputParser[0], out int Range);
+//        int.TryParse(InputParser[1], out int Number);
+//        List<int> RangeList = new List<int>();
+//        int[] arr = new int[Range];
+//        int j = 1;
+//        for(int i = 0; j <= Range; i++)
+//        {
+//            RangeList.Add(j);
+//            j+=2;
+//        }
+//        j = 2;
+//        for (int i = 0; j <= Range; i++)
+//        {
+//            RangeList.Add(j);
+//            j += 2;
+//        }
+//        for (int i = 1; i <= RangeList.Count(); i++)
+//        {
+//            if (i == Number)
+//                Console.WriteLine(RangeList[i - 1]);
+//        }
+//    }
+//}
 
 #endregion
 
