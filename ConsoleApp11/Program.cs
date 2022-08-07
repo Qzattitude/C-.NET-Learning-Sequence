@@ -5,37 +5,155 @@ using System.Threading;
 using System.Reflection;
 using System.Linq;
 
-#region Divisibility Problem
+#region TREE
+class Node1
+{
+    public int value;
+    public Node1 left;
+    public Node1 right;
+    public void Show()
+    {
+        Console.Write("[");
+        Console.Write(value);
+        Console.Write("]");
+    }
+}
+class Tree
+{
+    public Node1 root;
+    public Tree()
+    {
+        root = null;
+    }
+    public Node1 ReturnRoot()
+    {
+        return root;
+    }
+    public void Insert(int x)
+    {
+        Node1 newNode = new Node1();
+        newNode.value = x;
+        if(root == null)
+        {
+            root = newNode;
+        }
+        else
+        {
+            Node1 current = root;
+            Node1 parent;
+            while (true)
+            {
+                parent = current;
+                if(x < current.value)
+                {
+                    current = current.left;
+                    if(current == null)
+                    {
+                        parent.left = newNode;
+                        return ;
+                    }
+                }
+                else
+                {
+                    current = current.right;
+                    if(current == null)
+                    {
+                        parent.right = newNode;
+                        return ;
+                    }
+                }
+            }
+        }
+    }
+
+    public void Pre_Order(Node1 Root)
+    {
+        if(Root != null)
+        {
+            Console.Write(Root.value+" ");
+            Pre_Order(Root.left);
+            Pre_Order(Root.right);
+        }
+    }
+    public void In_Order(Node1 Root)
+    {
+        if (Root != null)
+        {
+            In_Order(Root.left);
+            Console.Write(Root.value + " ");
+            In_Order(Root.right);
+        }
+    }
+    public void Post_Order(Node1 Root)
+    {
+        if (Root != null)
+        {
+            Post_Order(Root.left);
+            Post_Order(Root.right);
+            Console.Write(Root.value + " ");
+        }
+    }
+}
+
 class Program
 {
     public static void Main()
     {
-        int.TryParse(Console.ReadLine(), out int n);
-        int[] ans = new int[n];
-        
-        for (int i = 0; i < n; i++)
-        {
-            int[] Numbers = Array.ConvertAll(Console.ReadLine()
-                .Split(new char[] { ' ' }, 
-                StringSplitOptions.RemoveEmptyEntries), 
-                (item) => Convert.ToInt32(item));
-            if (Numbers[0] % Numbers[1] == 0)
-            {
-                ans[i] = 0;
-            }
-            else if(Numbers[0] % Numbers[1] != 0)
-            {
-                var Mod = Numbers[0] % Numbers[1];
-                ans[i] = Numbers[1] - Mod;
-            }
-        }
-        foreach(int i in ans)
-        {
-            Console.WriteLine(i);
-        }
-        
+        Tree BST = new Tree();
+        BST.Insert(30);
+        BST.Insert(35);
+        BST.Insert(50);
+        BST.Insert(15);
+        BST.Insert(60);
+        BST.Insert(40);
+        BST.Insert(80);
+        BST.Insert(75);
+        BST.Insert(65);
+        BST.Insert(90);
+        BST.Insert(85);
+
+        Console.WriteLine("Pre Order Traversal of Binary Search Tree:");
+        BST.Pre_Order(BST.ReturnRoot());
+        Console.WriteLine("\nIn Order Traversal of Binary Search Tree:");
+        BST.In_Order(BST.ReturnRoot());
+        Console.WriteLine("\nPost Order Traversal of Binary Search Tree:");
+        BST.Post_Order(BST.ReturnRoot());
     }
-} 
+}
+
+#endregion
+
+#region Divisibility Problem
+//class Program
+//{
+//    public static void Main()
+//    {
+//        int.TryParse(Console.ReadLine(), out int n);
+//        int[] ans = new int[n];
+
+//        for (int i = 0; i < n; i++)
+//        {
+//            int[] Numbers = Array.ConvertAll(Console.ReadLine()
+//                .Split(new char[] { ' ' }, 
+//                StringSplitOptions.RemoveEmptyEntries), 
+//                (item) => Convert.ToInt32(item));
+//            if (Numbers[0] % Numbers[1] == 0)
+//            {
+//                ans[i] = 0;
+//            }
+//            else if(Numbers[0] % Numbers[1] != 0)
+//            {
+//                var Mod = Numbers[0] % Numbers[1];
+//                ans[i] = Numbers[1] - Mod;
+//            }
+//        }
+//        foreach(int i in ans)
+//        {
+//            Console.WriteLine(i);
+//        }
+
+//    }
+//} 
 #endregion
 
 #region A. Even Odds || Error for too long
